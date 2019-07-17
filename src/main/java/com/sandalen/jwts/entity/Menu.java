@@ -13,6 +13,15 @@ public class Menu {
 
     private String parentid;
 
+    private String name;
+
+    private String iconCls;
+
+    private Integer requireauth;
+
+    private List<Role> roles;
+
+    private List<Menu> children;
 
     public String getName() {
         return name;
@@ -37,16 +46,6 @@ public class Menu {
     public void setChildren(List<Menu> children) {
         this.children = children;
     }
-
-    private String name;
-
-    private String iconCls;
-
-    private Integer requireauth;
-
-    private List<Role> roles;
-
-    private List<Menu> children;
 
     public List<Menu> getMenus() {
         return children;

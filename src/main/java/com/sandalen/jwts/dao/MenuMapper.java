@@ -37,4 +37,6 @@ public interface MenuMapper {
     List<Menu> selectAll();
 
     List<Menu> getMenuByUserId(int userId);
+
+    List<Menu> getAllMenu();
 }

@@ -4,8 +4,10 @@ import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.sandalen.jwts.customAnnotation.UserLoginToken;
 import com.sandalen.jwts.dao.UserDao;
+import com.sandalen.jwts.entity.Role;
 import com.sandalen.jwts.entity.User;
 import com.sandalen.jwts.entity.UserExample;
+import com.sandalen.jwts.service.RoleService;
 import com.sandalen.jwts.service.UserService;
 import com.sandalen.jwts.utils.CookieUtils;
 import com.sandalen.jwts.utils.JwtUtils;
@@ -21,11 +23,15 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginController {
     @Autowired
     private UserDao userDao;
+
     @Autowired
     private JwtUtils jwtUtils;
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RoleService roleService;
 
     @RequestMapping("/user/login")
 //    @CrossOrigin(value = "http://localhost:8080",maxAge = 1800,allowedHeaders = "*")
@@ -85,6 +91,17 @@ public class LoginController {
         String id = jwtUtils.getId(token);
         User user = userService.getUser(Integer.parseInt(id));
         return user;
+    }
+
+    @RequestMapping("/user/getRole")
+    public Role getRoleByToken(String token){
+        if(token == null){
+            return null;
+        }
+        String id = jwtUtils.getId(token);
+        Role role = roleService.getRole(Integer.parseInt(id));
+
+        return role;
     }
 
     @RequestMapping("/login_p")

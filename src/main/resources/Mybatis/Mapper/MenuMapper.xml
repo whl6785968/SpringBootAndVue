@@ -269,4 +269,8 @@
   <select id="getMenuByUserId" resultMap="TstMap2" parameterType="java.lang.Integer">
     select m1.id as id,m1.path as path,m1.component as component,m1.name as name,m1.iconCls as iconCls,m1.parentId as parentId,m2.path as path2,m2.component as component2,m2.name as name2,m2.iconCls as iconCls2  from menu m1,menu m2 where m1.id = m2.parentId and m1.id!=1 and m2.id in (select mr.menu_id from user_role ur,menu_role mr where ur.role_id = mr.role_id and ur.user_id=#{id});
   </select>
+
+  <select id="getAllMenu" resultMap="TstMap2">
+    select m1.id as id,m1.path as path,m1.component as component,m1.name as name,m1.iconCls as iconCls,m1.parentId as parentId,m2.id as id2,m2.path as path2,m2.component as component2,m2.name as name2,m2.iconCls as iconCls2  from menu m1,menu m2 where m1.id = m2.parentId and m1.id!=1;
+  </select>
 </mapper>
