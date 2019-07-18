@@ -197,4 +197,46 @@
   <select id="getEquipDetailById" parameterType="java.lang.Integer" resultMap="DetailtMap">
     select el.id as id,el.ename as ename,el.eno as eno,ed.id as id2,ed.eid as eid,ed.edname as edname,ed.edid as edid,ed.eref as eref,ed.edate as edate,ed.evalue as evalue  from equipList el,equipDetail ed where el.id = ed.eid and el.id=#{id};
   </select>
+
+  <resultMap id="result" type="com.sandalen.jwts.entity.Equiplist" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ename" property="ename" jdbcType="VARCHAR" />
+    <result column="eno" property="eno" jdbcType="VARCHAR" />
+    <collection property="refmachines" ofType="com.sandalen.jwts.entity.Refmachine">
+      <result column="rname" property="name"></result>
+      <collection property="catagories" ofType="com.sandalen.jwts.entity.Catagory">
+        <id column="cid" property="id"></id>
+        <result column="cname" property="name"></result>
+        <collection property="pm10s" ofType="com.sandalen.jwts.entity.Pm10">
+          <id column="pid" property="id"></id>
+          <result column="dvalue" property="dvalue"></result>
+          <result column="ddate" property="ddate"></result>
+        </collection>
+      </collection>
+    </collection>
+  </resultMap>
+
+  <select id="selectPm10" resultMap="result" parameterType="java.lang.String">
+    select el.id as id,el.ename as ename,el.eno as eno,ref.name as rname,c.id as cid,c.name as cname,p.dvalue as dvalue,p.ddate as ddate from equiplist el,refMachine ref,catagory c,PM10 p  where el.id = ref.eid and ref.id = c.rid and c.id = p.cid and eno = #{eno} order by p.ddate desc limit 1 ;
+  </select>
+
+  <select id="selectPm25" resultMap="result" parameterType="java.lang.String">
+    select el.id as id,el.ename as ename,el.eno as eno,ref.name as rname,c.id as cid,c.name as cname,p.dvalue as dvalue,p.ddate as ddate from equiplist el,refMachine ref,catagory c,PM25 p  where el.id = ref.eid and ref.id = c.rid and c.id = p.cid and eno = #{eno} order by p.ddate desc limit 1 ;
+  </select>
+
+  <select id="selectCo2" resultMap="result" parameterType="java.lang.String">
+    select el.id as id,el.ename as ename,el.eno as eno,ref.name as rname,c.id as cid,c.name as cname,p.dvalue as dvalue,p.ddate as ddate from equiplist el,refMachine ref,catagory c,co2 p  where el.id = ref.eid and ref.id = c.rid and c.id = p.cid and eno = #{eno} order by p.ddate desc limit 1 ;
+  </select>
+
+  <select id="selectTemper" resultMap="result" parameterType="java.lang.String">
+    select el.id as id,el.ename as ename,el.eno as eno,ref.name as rname,c.id as cid,c.name as cname,p.dvalue as dvalue,p.ddate as ddate from equiplist el,refMachine ref,catagory c,temper p  where el.id = ref.eid and ref.id = c.rid and c.id = p.cid and eno = #{eno} order by p.ddate desc limit 1 ;
+  </select>
+
+  <select id="selectHumi" resultMap="result" parameterType="java.lang.String">
+    select el.id as id,el.ename as ename,el.eno as eno,ref.name as rname,c.id as cid,c.name as cname,p.dvalue as dvalue,p.ddate as ddate from equiplist el,refMachine ref,catagory c,humidity p  where el.id = ref.eid and ref.id = c.rid and c.id = p.cid and eno = #{eno} order by p.ddate desc limit 1 ;
+  </select>
+
+  <select id="selectIllumi" resultMap="result" parameterType="java.lang.String">
+    select el.id as id,el.ename as ename,el.eno as eno,ref.name as rname,c.id as cid,c.name as cname,p.dvalue as dvalue,p.ddate as ddate from equiplist el,refMachine ref,catagory c,illumination p  where el.id = ref.eid and ref.id = c.rid and c.id = p.cid and eno = #{eno} order by p.ddate desc limit 1 ;
+  </select>
 </mapper>

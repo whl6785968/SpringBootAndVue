@@ -161,4 +161,8 @@
     set role_name = #{roleName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getMaxRoleId" resultType="java.lang.Integer">
+    select max(id) from role;
+  </select>
 </mapper>

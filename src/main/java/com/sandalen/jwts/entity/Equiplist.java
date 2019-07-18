@@ -9,6 +9,16 @@ public class Equiplist {
 
     private String eno;
 
+    private List<Refmachine> refmachines;
+
+    public List<Refmachine> getRefmachines() {
+        return refmachines;
+    }
+
+    public void setRefmachines(List<Refmachine> refmachines) {
+        this.refmachines = refmachines;
+    }
+
     private List<Equipdetail> equipdetailList;
 
     public List<Equipdetail> getEquipdetailList() {
@@ -42,4 +52,5 @@ public class Equiplist {
     public void setEno(String eno) {
         this.eno = eno == null ? null : eno.trim();
     }
+
 }

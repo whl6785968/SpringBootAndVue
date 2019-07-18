@@ -78,4 +78,17 @@ public class MenuService {
         }
         return false;
     }
+
+    public boolean addNewRole(Role role){
+        int i = roleMapper.insert(role);
+        if(i != 0){
+            return true;
+        }
+        return false;
+    }
+
+    public int getMaxRoleId(){
+        int maxRoleId = roleMapper.getMaxRoleId();
+        return maxRoleId;
+    }
 }

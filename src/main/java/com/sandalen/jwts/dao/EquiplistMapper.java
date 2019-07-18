@@ -35,4 +35,18 @@ public interface EquiplistMapper {
     int updateByPrimaryKey(Equiplist record);
 
     Equiplist getEquipDetailById(int id);
+
+    Equiplist selectPm10(String eno);
+
+    Equiplist selectPm25(String eno);
+
+    Equiplist selectCo2(String eno);
+
+    Equiplist selectTemper(String eno);
+
+    Equiplist selectHumi(String eno);
+
+    Equiplist selectIllumi(String eno);
+
+
 }

@@ -33,5 +33,10 @@ public class EquipController {
         return equipList;
     }
 
+    @RequestMapping("/equip/getData")
+    public List<Equiplist> getData(String eno){
+        List<Equiplist> data = equipService.getData(eno);
+        return data;
+    }
 
 }

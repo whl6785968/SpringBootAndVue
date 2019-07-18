@@ -5,10 +5,7 @@ import com.sandalen.jwts.entity.*;
 import com.sandalen.jwts.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -47,17 +44,17 @@ public class MenuController {
     }
 
     @RequestMapping(value = "/menu/updateMenuByRid")
-    public RespBean updateMenuByRid(int id,String[] mids){
+    public RespBean updateMenuByRid(int id,Integer[] mids){
         MenuRoleExample menuRoleExample = new MenuRoleExample();
         menuRoleExample.createCriteria().andRoleIdEqualTo(id);
         menuService.deleteMenuRole(menuRoleExample);
 
-        Integer[] newMids = new Integer[mids.length];
-        for(int i=0;i<mids.length;i++){
-            newMids[i] = Integer.parseInt(mids[i]);
-        }
+//        Integer[] newMids = new Integer[mids.length];
+//        for(int i=0;i<mids.length;i++){
+//            newMids[i] = Integer.parseInt(mids[i]);
+//        }
 
-        for(Integer mid : newMids){
+        for(Integer mid : mids){
             MenuRole menuRole = new MenuRole();
             menuRole.setRoleId(id);
             menuRole.setMenuId(mid);
@@ -67,4 +64,18 @@ public class MenuController {
         return RespBean.ok("修改成功");
     }
 
+    @RequestMapping("/menu/addNewRole")
+    public RespBean addNewRole(String roleName){
+        int maxRoleId = menuService.getMaxRoleId();
+        Role role = new Role();
+        role.setId(maxRoleId+1);
+        role.setRoleName("ROLE_"+roleName.toUpperCase());
+        boolean b = menuService.addNewRole(role);
+        if(b == true){
+            return RespBean.ok("添加成功");
+        }
+
+        return RespBean.error("添加失败");
+
+    }
 }
