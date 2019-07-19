@@ -4,8 +4,12 @@ import java.util.List;
 
 import com.sandalen.jwts.entity.Catagory;
 import com.sandalen.jwts.entity.CatagoryExample;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Mapper
+@Repository
 public interface CatagoryMapper {
     int countByExample(CatagoryExample example);
 

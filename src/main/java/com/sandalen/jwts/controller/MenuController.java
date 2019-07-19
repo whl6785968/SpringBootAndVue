@@ -76,6 +76,5 @@ public class MenuController {
         }
 
         return RespBean.error("添加失败");
-
     }
 }

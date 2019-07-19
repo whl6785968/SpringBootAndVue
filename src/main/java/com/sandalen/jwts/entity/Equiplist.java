@@ -11,6 +11,18 @@ public class Equiplist {
 
     private List<Refmachine> refmachines;
 
+    private List<Showdata> showdata;
+
+    private List<Equipdetail> equipdetailList;
+
+    public List<Showdata> getShowdata() {
+        return showdata;
+    }
+
+    public void setShowdata(List<Showdata> showdata) {
+        this.showdata = showdata;
+    }
+
     public List<Refmachine> getRefmachines() {
         return refmachines;
     }
@@ -19,7 +31,6 @@ public class Equiplist {
         this.refmachines = refmachines;
     }
 
-    private List<Equipdetail> equipdetailList;
 
     public List<Equipdetail> getEquipdetailList() {
         return equipdetailList;

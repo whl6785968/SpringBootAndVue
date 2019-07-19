@@ -2,7 +2,7 @@ spring:
   datasource:
     username: root
     password: whl5291598
-    url: jdbc:mysql://localhost/tsm?useSSL=false&&serverTimezone=UTC
+    url: jdbc:mysql://localhost/tsm?useSSL=false&&serverTimezone=UTC&&characterEncoding=utf-8
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
       #   数据源其他配置

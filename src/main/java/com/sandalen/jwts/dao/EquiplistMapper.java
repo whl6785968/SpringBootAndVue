@@ -2,7 +2,10 @@ package com.sandalen.jwts.dao;
 
 
 import java.util.List;
+import java.util.Map;
 
+import com.sandalen.jwts.entity.Catagory;
+import com.sandalen.jwts.entity.Edata;
 import com.sandalen.jwts.entity.Equiplist;
 import com.sandalen.jwts.entity.EquiplistExample;
 import org.apache.ibatis.annotations.Mapper;
@@ -47,6 +50,14 @@ public interface EquiplistMapper {
     Equiplist selectHumi(String eno);
 
     Equiplist selectIllumi(String eno);
+
+    Equiplist selectShowData(String eno);
+
+    Equiplist selectRef(String eno);
+
+    List<Catagory> selectCata(Map map);
+
+    List<Edata> getDataByEquip(Map map);
 
 
 }

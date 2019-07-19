@@ -1,42 +1,81 @@
 package com.sandalen.jwts.controller;
 
-import com.sandalen.jwts.entity.Equipdetail;
-import com.sandalen.jwts.entity.Equiplist;
-import com.sandalen.jwts.entity.EquiplistExample;
+import com.sandalen.jwts.beans.RespBean;
+import com.sandalen.jwts.entity.*;
 import com.sandalen.jwts.service.EquipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+@RequestMapping("/equip")
 @RestController
 public class EquipController {
     @Autowired
     private EquipService equipService;
 
-    @RequestMapping("/equip/getList")
+    @RequestMapping("/getList")
     public List<Equiplist> getEquipList(){
         EquiplistExample example = new EquiplistExample();
         List<Equiplist> equipList = equipService.getEquipList(example);
         return equipList;
     }
 
-    @RequestMapping("/equip/getDetail")
+    @RequestMapping("/getDetail")
     public Equiplist getEquipDetailById(int id){
         System.out.println(id);
         Equiplist equipList = equipService.getEquipDetailById(id);
-//        Equiplist equiplist = equipList.get(0);
-//        List<Equipdetail> equipdetailList = equiplist.getEquipdetailList();
-
-//        System.out.println(equipdetailList.size());
         return equipList;
     }
 
-    @RequestMapping("/equip/getData")
-    public List<Equiplist> getData(String eno){
-        List<Equiplist> data = equipService.getData(eno);
-        return data;
+//    @RequestMapping("/equip/getData")
+//    public List<Equiplist> getData(String eno){
+//        List<Equiplist> data = equipService.getData(eno);
+//        return data;
+//    }
+
+    @RequestMapping("/getPm10")
+    public Equiplist getPm10(String eno){
+        Equiplist pm10 = equipService.getPm10(eno);
+        return pm10;
     }
+
+    @RequestMapping("/insertShowData")
+    public String insertShowData(){
+        equipService.getData("00202440000000004");
+        return "111";
+    }
+
+    @RequestMapping("/getShowData")
+    public RespBean getShowData(String eno){
+        Equiplist showData = equipService.getShowData(eno);
+        return RespBean.ok("查询成功",showData);
+    }
+
+    @RequestMapping("/selectRef")
+    public RespBean selectRef(String eno){
+        Equiplist equiplist = equipService.selectRef(eno);
+        return RespBean.ok("查询成功",equiplist);
+    }
+
+    @RequestMapping("/selectCata")
+    public RespBean selectCata(String eno,int rid){
+        Map<String, Object> map = new HashMap<>();
+        map.put("eno",eno);
+        map.put("rid",rid);
+        List<Catagory> equiplist = equipService.selectCata(map);
+        return RespBean.ok("成功",equiplist);
+    }
+
+    @RequestMapping("/getDetailData")
+    public RespBean getDetailData(int cid,String eno,int rid){
+        List<Edata> data = equipService.getData(cid, eno, rid);
+        return RespBean.ok("成功了",data);
+    }
+
+
 
 }
