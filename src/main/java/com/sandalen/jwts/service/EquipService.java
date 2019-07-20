@@ -131,4 +131,23 @@ public class EquipService {
         List<Edata> data = equiplistMapper.getDataByEquip(map);
         return data;
     }
+
+    public Refmachine getRefByEdid(int edid){
+        Refmachine refByEdid = equiplistMapper.getRefByEdid(edid);
+        return refByEdid;
+    }
+
+    public Catagory getCataByEdid(int edid){
+        Catagory catagory = catagoryMapper.selectByPrimaryKey(edid);
+        return catagory;
+    }
+
+    public List<Edata> getDataForExport(Map map){
+        List<Edata> dataForExport = equiplistMapper.getDataForExport(map);
+        return dataForExport;
+    }
+
+
+
+
 }

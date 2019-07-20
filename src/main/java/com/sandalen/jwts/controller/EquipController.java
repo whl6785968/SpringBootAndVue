@@ -3,13 +3,13 @@ package com.sandalen.jwts.controller;
 import com.sandalen.jwts.beans.RespBean;
 import com.sandalen.jwts.entity.*;
 import com.sandalen.jwts.service.EquipService;
+import com.sandalen.jwts.utils.PoiUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RequestMapping("/equip")
 @RestController
@@ -75,6 +75,14 @@ public class EquipController {
         List<Edata> data = equipService.getData(cid, eno, rid);
         return RespBean.ok("成功了",data);
     }
+
+    @RequestMapping("/getRefByEdid")
+    public RespBean getRefByEdid(int edid){
+        Refmachine refmachine = equipService.getRefByEdid(edid);
+        return RespBean.ok("suc",refmachine);
+    }
+
+
 
 
 

@@ -4,10 +4,7 @@ package com.sandalen.jwts.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.sandalen.jwts.entity.Catagory;
-import com.sandalen.jwts.entity.Edata;
-import com.sandalen.jwts.entity.Equiplist;
-import com.sandalen.jwts.entity.EquiplistExample;
+import com.sandalen.jwts.entity.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -58,6 +55,10 @@ public interface EquiplistMapper {
     List<Catagory> selectCata(Map map);
 
     List<Edata> getDataByEquip(Map map);
+
+    Refmachine getRefByEdid(int edid);
+
+    List<Edata> getDataForExport(Map map);
 
 
 }

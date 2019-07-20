@@ -396,4 +396,31 @@
     </if>
     where cid in (select id from catagory where id in (select cid from equip_ref er,ref_cata rc where er.rid = rc.rid and eno = #{eno} and er.rid=#{rid}));
   </select>
+
+  <select id="getRefByEdid" resultType="com.sandalen.jwts.entity.Refmachine" parameterType="java.lang.Integer">
+      select rf.id as id,rf.name as name,rf.eid as eid from refmachine rf,catagory c where rf.id = c.rid and c.id = #{edid} ;
+  </select>
+
+  <select id="getDataForExport" resultType="com.sandalen.jwts.entity.Edata">
+    select * from
+    <if test="cname == 'pm2.5'">
+      pm25
+    </if>
+    <if test="cname == 'pm10'">
+      pm10
+    </if>
+    <if test="cname == '二氧化碳浓度'">
+      co2
+    </if>
+    <if test="cname == '湿度'">
+      humidity
+    </if>
+    <if test="cname == '温度'">
+      temper
+    </if>
+    <if test="cname == '光照度'">
+      illumination
+    </if>
+    where cid = #{edid}
+  </select>
 </mapper>
