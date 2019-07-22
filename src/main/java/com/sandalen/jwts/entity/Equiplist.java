@@ -13,7 +13,17 @@ public class Equiplist {
 
     private List<Showdata> showdata;
 
+    private EquipInfo equipInfos;
+
     private List<Equipdetail> equipdetailList;
+
+    public EquipInfo getEquipInfos() {
+        return equipInfos;
+    }
+
+    public void setEquipInfos(EquipInfo equipInfos) {
+        this.equipInfos = equipInfos;
+    }
 
     public List<Showdata> getShowdata() {
         return showdata;

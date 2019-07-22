@@ -147,6 +147,11 @@ public class EquipService {
         return dataForExport;
     }
 
+    public List<Equiplist> getAllEquipInfo(){
+        List<Equiplist> allEquipInfo = equiplistMapper.getAllEquipInfo();
+        return allEquipInfo;
+    }
+
 
 
 

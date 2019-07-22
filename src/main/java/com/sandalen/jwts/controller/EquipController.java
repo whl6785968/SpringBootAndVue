@@ -82,6 +82,12 @@ public class EquipController {
         return RespBean.ok("suc",refmachine);
     }
 
+    @RequestMapping("/getAllEquipInfo")
+    public RespBean getAllEquipInfo(){
+        List<Equiplist> allEquipInfo = equipService.getAllEquipInfo();
+        return RespBean.ok("suc",allEquipInfo);
+    }
+
 
 
 

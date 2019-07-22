@@ -60,5 +60,7 @@ public interface EquiplistMapper {
 
     List<Edata> getDataForExport(Map map);
 
+    List<Equiplist> getAllEquipInfo();
+
 
 }

@@ -423,4 +423,8 @@
     </if>
     where cid = #{edid}
   </select>
+
+  <select id="getAllEquipInfo" resultType="com.sandalen.jwts.entity.EquipVo">
+    select el.id,el.ename,el.eno,ei.longitude as longitude,ei.latitude as latitude,ei.charge as charge,ei.location as location,ei.state as state from equipList el, equipInfo ei where ei.eno = el.eno;
+  </select>
 </mapper>
