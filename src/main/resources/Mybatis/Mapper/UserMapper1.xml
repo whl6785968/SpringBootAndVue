@@ -196,4 +196,8 @@
   <select id="getUser" resultMap="customMap">
     select u.id as id,u.username as username,u.password as password,r.id as rid,r.role_name as rname from user u,user_role ur,role r where u.id = ur.user_id and ur.role_id = r.id;
   </select>
+
+  <select id="getUserExceptSelf" resultType="com.sandalen.jwts.entity.User" parameterType="java.lang.Integer">
+    select * from user where id != #{id}
+  </select>
 </mapper>

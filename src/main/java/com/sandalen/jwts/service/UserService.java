@@ -51,4 +51,9 @@ public class UserService {
         List<UserRole> userRoles = userRoleMapper.selectByExample(example);
         return userRoles.get(0);
     }
+
+    public List<User> getUserExceptSelf(int id){
+        List<User> users = userMapper1.getUserExceptSelf(id);
+        return users;
+    }
 }

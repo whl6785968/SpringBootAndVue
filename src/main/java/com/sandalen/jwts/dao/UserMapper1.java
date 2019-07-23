@@ -37,4 +37,7 @@ public interface UserMapper1 {
     User getRole(String username);
 
     List<User> getUser();
+
+    List<User> getUserExceptSelf(int id);
+
 }
