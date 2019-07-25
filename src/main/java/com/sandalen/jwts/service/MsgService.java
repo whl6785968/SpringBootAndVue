@@ -38,4 +38,9 @@ public class MsgService {
         List<MsgUser> msgUsers = msgUserMapper.selectByExample(example);
         return msgUsers;
     }
+
+    public int getNotReadMsgCount(MsgUserExample example){
+        int count = msgUserMapper.countByExample(example);
+        return count;
+    }
 }
