@@ -258,4 +258,8 @@
       uid = #{uid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getPubilicMsgTitle" parameterType="java.lang.Integer" resultType="com.sandalen.jwts.entity.PublicMsgTitleBean">
+    select m.id,m.name,m.poi,m.mdate,m.isEmer,m.other,mu.uid,mu.isRead,ui.name as uname from msg m,msg_user mu,userInfo ui where m.id = mu.msid and mu.uid=1 and ui.id= m.uid;
+  </select>
 </mapper>

@@ -119,4 +119,24 @@ public class MsgController {
         return RespBean.ok("查找成功",msgList);
     }
 
+    @ResponseBody
+    @RequestMapping("/getPublicMsgTitle")
+    public RespBean getPubilicMsgTitle(int uid){
+        List<PublicMsgTitleBean> publicMsgTitle = msgService.getPubilicMsgTitle(uid);
+        return RespBean.ok("查询成功",publicMsgTitle);
+    }
+
+    @ResponseBody
+    @RequestMapping("/changeReadState")
+    public RespBean changeReadState(int msid,int uid){
+        MsgUserExample example = new MsgUserExample();
+        MsgUserExample.Criteria criteria = example.createCriteria();
+        criteria.andUidEqualTo(uid);
+        criteria.andMsidEqualTo(msid);
+        MsgUser msgUser = msgService.selectMsgUser(example);
+        msgUser.setIsread(1);
+        msgService.changeReadState(msgUser);
+        return RespBean.ok("修改成功");
+    }
+
 }

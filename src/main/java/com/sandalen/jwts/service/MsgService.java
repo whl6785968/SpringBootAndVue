@@ -2,10 +2,7 @@ package com.sandalen.jwts.service;
 
 import com.sandalen.jwts.dao.MsgMapper;
 import com.sandalen.jwts.dao.MsgUserMapper;
-import com.sandalen.jwts.entity.Msg;
-import com.sandalen.jwts.entity.MsgExample;
-import com.sandalen.jwts.entity.MsgUser;
-import com.sandalen.jwts.entity.MsgUserExample;
+import com.sandalen.jwts.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,5 +39,20 @@ public class MsgService {
     public int getNotReadMsgCount(MsgUserExample example){
         int count = msgUserMapper.countByExample(example);
         return count;
+    }
+
+    public List<PublicMsgTitleBean> getPubilicMsgTitle(int uid){
+        List<PublicMsgTitleBean> pubilicMsgTitle = msgMapper.getPubilicMsgTitle(uid);
+        return pubilicMsgTitle;
+    }
+
+    public int changeReadState(MsgUser msgUser){
+        int i = msgUserMapper.updateByPrimaryKey(msgUser);
+        return i;
+    }
+
+    public MsgUser selectMsgUser(MsgUserExample example){
+        List<MsgUser> msgUsers = msgUserMapper.selectByExample(example);
+        return msgUsers.get(0);
     }
 }

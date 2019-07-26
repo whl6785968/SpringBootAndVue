@@ -1,11 +1,13 @@
 package com.sandalen.jwts.entity;
 
+
 public class MsgUser {
     private Integer id;
 
     private Integer uid;
 
     private Integer msid;
+
 
     private Integer isread;
 
@@ -40,4 +42,6 @@ public class MsgUser {
     public void setIsread(Integer isread) {
         this.isread = isread;
     }
+
+
 }

@@ -5,6 +5,7 @@ import com.sandalen.jwts.entity.MsgExample;
 
 import java.util.List;
 
+import com.sandalen.jwts.entity.PublicMsgTitleBean;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -33,4 +34,6 @@ public interface MsgMapper {
     int updateByPrimaryKeySelective(Msg record);
 
     int updateByPrimaryKey(Msg record);
+
+    List<PublicMsgTitleBean> getPubilicMsgTitle(int uid);
 }
