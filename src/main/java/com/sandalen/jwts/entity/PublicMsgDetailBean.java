@@ -2,25 +2,15 @@ package com.sandalen.jwts.entity;
 
 import java.util.Date;
 
-public class Msg {
+public class PublicMsgDetailBean {
     private Integer id;
-
     private String name;
-
     private String poi;
-
     private Date mdate;
-
-    private Boolean isemer;
-
-    private String type;
-
+    private Integer isEmer;
     private String other;
-
+    private String uname;
     private Integer uid;
-
-    private Userinfo userinfo;
-
     private String imgList;
 
     public Integer getId() {
@@ -36,7 +26,7 @@ public class Msg {
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
     public String getPoi() {
@@ -44,7 +34,7 @@ public class Msg {
     }
 
     public void setPoi(String poi) {
-        this.poi = poi == null ? null : poi.trim();
+        this.poi = poi;
     }
 
     public Date getMdate() {
@@ -55,20 +45,12 @@ public class Msg {
         this.mdate = mdate;
     }
 
-    public Boolean getIsemer() {
-        return isemer;
+    public Integer getIsEmer() {
+        return isEmer;
     }
 
-    public void setIsemer(Boolean isemer) {
-        this.isemer = isemer;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type == null ? null : type.trim();
+    public void setIsEmer(Integer isEmer) {
+        this.isEmer = isEmer;
     }
 
     public String getOther() {
@@ -76,7 +58,15 @@ public class Msg {
     }
 
     public void setOther(String other) {
-        this.other = other == null ? null : other.trim();
+        this.other = other;
+    }
+
+    public String getUname() {
+        return uname;
+    }
+
+    public void setUname(String uname) {
+        this.uname = uname;
     }
 
     public Integer getUid() {
@@ -85,14 +75,6 @@ public class Msg {
 
     public void setUid(Integer uid) {
         this.uid = uid;
-    }
-
-    public Userinfo getUserinfo() {
-        return userinfo;
-    }
-
-    public void setUserinfo(Userinfo userinfo) {
-        this.userinfo = userinfo;
     }
 
     public String getImgList() {

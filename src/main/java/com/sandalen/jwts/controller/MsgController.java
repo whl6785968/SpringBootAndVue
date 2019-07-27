@@ -36,6 +36,7 @@ public class MsgController {
     @ResponseBody
     @PostMapping("/sendNotice")
     public RespBean sendNotice(@RequestBody Msg msg){
+        System.out.println(msg.toString());
         Integer uid = msg.getUid();
         int i = msgService.sendNotice(msg);
         Integer msid = msg.getId();
@@ -114,7 +115,7 @@ public class MsgController {
     @RequestMapping("/getMsgList")
     public RespBean getMsgList(){
         MsgExample msgExample = new MsgExample();
-        msgExample.createCriteria();
+        msgExample.setOrderByClause("id DESC");
         List<Msg> msgList = msgService.getMsgList(msgExample);
         return RespBean.ok("查找成功",msgList);
     }
@@ -137,6 +138,29 @@ public class MsgController {
         msgUser.setIsread(1);
         msgService.changeReadState(msgUser);
         return RespBean.ok("修改成功");
+    }
+
+    @ResponseBody
+    @RequestMapping("/getPublicMsgDetail")
+    public RespBean getDetailMsg(int msid){
+        PublicMsgDetailBean publicMsgDetail = msgService.getPublicMsgDetail(msid);
+        return RespBean.ok("查询成功",publicMsgDetail);
+    }
+
+    @ResponseBody
+    @RequestMapping("/deleteMsg")
+    public RespBean deleteMsg(int[] msids,int uid){
+
+        for (int msid : msids){
+            MsgUserExample msgUserExample = new MsgUserExample();
+            MsgUserExample.Criteria criteria = msgUserExample.createCriteria();
+            criteria.andMsidEqualTo(msid);
+            criteria.andUidEqualTo(uid);
+            msgService.deleteMsg(msgUserExample);
+        }
+
+
+        return RespBean.ok("删除成功");
     }
 
 }

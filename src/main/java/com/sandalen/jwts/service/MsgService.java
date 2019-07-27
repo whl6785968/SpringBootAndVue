@@ -55,4 +55,14 @@ public class MsgService {
         List<MsgUser> msgUsers = msgUserMapper.selectByExample(example);
         return msgUsers.get(0);
     }
+
+    public PublicMsgDetailBean getPublicMsgDetail(int msid){
+        PublicMsgDetailBean publicMsgDetail = msgMapper.getPublicMsgDetail(msid);
+        return publicMsgDetail;
+    }
+
+    public int deleteMsg(MsgUserExample example){
+        int i = msgUserMapper.deleteByExample(example);
+        return i;
+    }
 }
