@@ -39,6 +39,11 @@ public class UserService {
         return users;
     }
 
+    public List<User> getUserList(UserExample example){
+        List<User> users = userMapper1.selectByExample(example);
+        return users;
+    }
+
     public boolean changeAuth(UserRole userRole){
         int i = userRoleMapper.updateByPrimaryKey(userRole);
         if(i != 0){

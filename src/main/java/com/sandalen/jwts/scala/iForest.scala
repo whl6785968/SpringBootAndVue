@@ -23,12 +23,12 @@ case class iForest(trees: Array[ITree], maxSamples: Int) {
       throw new Exception("Please train before predict!!")
     } else {
       val predictions = trees.map(s => pathLength(x, s, 0)).toList
-      val score = math.pow(2, -(predictions.sum / predictions.size) / cost(maxSamples))
-      if(score>0.6){
-        List(score,1)
-      }else{
-        List(score,0)
-      }
+      math.pow(2, -(predictions.sum / predictions.size) / cost(maxSamples))
+//      if(score>0.6){
+//        List(score,1)
+//      }else{
+//        List(score,0)
+//      }
     }
   }
 

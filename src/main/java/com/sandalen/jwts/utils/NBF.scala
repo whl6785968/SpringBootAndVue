@@ -5,7 +5,7 @@ object NBF {
     str.toInt
   }
 
-  def toDouble(str:String):Double = {
-    str.toDouble
+  def toDouble(str:Any):Double = {
+    str.toString.toDouble
   }
 }

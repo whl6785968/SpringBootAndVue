@@ -3,10 +3,12 @@ package com.sandalen.jwts.controller;
 import com.alibaba.fastjson.JSON;
 import com.sandalen.jwts.beans.RespBean;
 import com.sandalen.jwts.beans.UserInfoCountBean;
+import com.sandalen.jwts.config.WebSocket;
 import com.sandalen.jwts.entity.*;
 import com.sandalen.jwts.service.MsgService;
 import com.sandalen.jwts.service.UserService;
 import com.sandalen.jwts.utils.JwtUtils;
+import com.sandalen.jwts.utils.MsgRelatedUtils;
 import edu.princeton.cs.algs4.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -32,6 +35,10 @@ public class MsgController {
     private UserService userService;
     @Autowired
     private JwtUtils jwtUtils;
+    @Autowired
+    private MsgRelatedUtils msgRelatedUtils;
+    @Autowired
+    private WebSocket webSocket;
 
     @ResponseBody
     @PostMapping("/sendNotice")
@@ -65,7 +72,7 @@ public class MsgController {
 
     @MessageMapping("/getMsgCount")
     @SendTo("/topic/publicMsg")
-        public UserInfoCountBean getMsgCount(String token){
+    public UserInfoCountBean getMsgCount(String token){
         System.out.println("接收到数据");
 //        String id = jwtUtils.getId(token);
 //        MsgUserExample msgUserExample = new MsgUserExample();
@@ -76,8 +83,7 @@ public class MsgController {
 //        Map<String,Object> map = new HashMap<>();
 //        map.put("notReadMsgCount",notReadMsgCount);
 //        String notReadJson = JSON.toJSONString(map);
-        UserInfoCountBean userInfoCountBean = getNotReadCount(token);
-
+        UserInfoCountBean userInfoCountBean = msgRelatedUtils.getNotReadCount(token);
         return userInfoCountBean;
     }
 
@@ -85,24 +91,9 @@ public class MsgController {
     @RequestMapping("/getNotReadCount")
     public RespBean initNotReadCount(String token){
         System.out.println("初始化NotReadCount");
-        UserInfoCountBean notReadCount = getNotReadCount(token);
+        UserInfoCountBean notReadCount = msgRelatedUtils.getNotReadCount(token);
 
         return RespBean.ok("查询成功",notReadCount);
-    }
-
-    public UserInfoCountBean getNotReadCount(String token){
-        String id = jwtUtils.getId(token);
-        MsgUserExample msgUserExample = new MsgUserExample();
-        MsgUserExample.Criteria criteria = msgUserExample.createCriteria();
-        criteria.andUidEqualTo(Integer.parseInt(id));
-        System.out.println("uid" + id);
-        criteria.andIsreadEqualTo(0);
-        int notReadMsgCount = msgService.getNotReadMsgCount(msgUserExample);
-        System.out.println("count" + notReadMsgCount);
-        UserInfoCountBean userInfoCountBean = new UserInfoCountBean();
-        userInfoCountBean.setUser(Integer.parseInt(id));
-        userInfoCountBean.setInfoCount(notReadMsgCount);
-        return userInfoCountBean;
     }
 
 
@@ -161,6 +152,30 @@ public class MsgController {
 
 
         return RespBean.ok("删除成功");
+    }
+
+    @ResponseBody
+    @RequestMapping("/many")
+    public String sendToMany(){
+        try{
+            webSocket.sendMessage("测试");
+            return "成功";
+        }catch (Exception e){
+            e.printStackTrace();
+            return "失败";
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("/one")
+    public String sendToOne(String sessionId){
+        try{
+            webSocket.sendMessage(sessionId,"你好");
+            return "suc";
+        }catch (Exception e){
+            e.printStackTrace();
+            return "fail";
+        }
     }
 
 }

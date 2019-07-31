@@ -19,7 +19,7 @@ class DataPoint(val data0:Double,val data1:Double,val data2:Double,val data3:Dou
 }
 
 object DataPoint {
-  def apply(arr:Array[String]):DataPoint = new DataPoint(
+  def apply(arr:Array[Double]):DataPoint = new DataPoint(
     NBF.toDouble(arr(0)),
     NBF.toDouble(arr(1)),
     NBF.toDouble(arr(2)),
