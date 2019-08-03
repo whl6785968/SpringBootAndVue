@@ -53,9 +53,15 @@ public class AlgoController {
     @ResponseBody
     @RequestMapping("/staticsErrorDataPoint")
 //    @SendTo("/topic/publicMsg")
-    public UserInfoCountBean staticsErrorDataPoint(HttpServletRequest request){
+    public RespBean staticsErrorDataPoint(HttpServletRequest request){
         try {
             int errorDataPoint = algoService.staticsErrorDataPoint();
+            List<DataPoint> errDataPoint = algoService.getErrDataPoint();
+
+            DataAnaVo dataAnaVo = new DataAnaVo();
+            dataAnaVo.setCount(errorDataPoint);
+            dataAnaVo.setDataPoint(errDataPoint);
+
             UserExample userExample = new UserExample();
             userExample.createCriteria().andIdNotEqualTo(3);
             List<User> userList = userService.getUserList(userExample);
@@ -79,20 +85,18 @@ public class AlgoController {
                 }
             }
 
+//            Cookie cookie = CookieUtils.getCookie(request.getCookies(), "X-Token");
+//            String token = cookie.getValue();
+//            UserInfoCountBean notReadCount = msgRelatedUtils.getNotReadCount(token);
 
+            simpMessagingTemplate.convertAndSend("/topic/publicMsg","请更新消息");
 
-            Cookie cookie = CookieUtils.getCookie(request.getCookies(), "X-Token");
-            String token = cookie.getValue();
-            UserInfoCountBean notReadCount = msgRelatedUtils.getNotReadCount(token);
-
-            simpMessagingTemplate.convertAndSend("/topic/publicMsg",notReadCount);
-
-            return notReadCount;
+            return RespBean.ok("计算成功",dataAnaVo);
 //            return RespBean.ok("查询成功",errorDataPoint);
 
         }catch (Exception e){
             e.printStackTrace();
-            return null;
+            return RespBean.error("计算失败");
         }
     }
 
@@ -110,6 +114,18 @@ public class AlgoController {
             return RespBean.error("计算失败");
         }
 
+    }
+
+    @ResponseBody
+    @RequestMapping("/predicLabel")
+    public RespBean predictLabel(){
+        String[] args = new String[5];
+        try{
+            double acc = algoService.PredictLabelByRF(args);
+            return RespBean.ok("预测成功",1.0-acc);
+        }catch (Exception e){
+            return RespBean.error("发生错误");
+        }
     }
 
 }

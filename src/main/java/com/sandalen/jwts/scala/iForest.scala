@@ -14,7 +14,7 @@ case class ITreeBranch(left: ITree, right: ITree, split_column: Int, split_value
 case class ITreeLeaf(size: Long) extends ITree
 
 /** @param trees      trained trees
-  * @param maxSamples The number of samples to train each base tree
+  * @param maxSamples The number of samples to t  rain each base tree
   */
 case class iForest(trees: Array[ITree], maxSamples: Int) {
 

@@ -4,4 +4,8 @@
     <select id="staticsErrorDataPoint" resultType="java.lang.Integer">
         select count(*) from datapoint where score > 0.6
     </select>
+
+    <select id="getErrDataPoint" resultType="com.sandalen.jwts.entity.DataPoint">
+        select * from datapoint where score > 0.6
+    </select>
 </mapper>
